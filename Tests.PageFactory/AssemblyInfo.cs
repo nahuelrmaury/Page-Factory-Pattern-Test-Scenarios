@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 // attribute to true on that type.
 
 [assembly: Parallelizable(ParallelScope.All)]
-[assembly: LevelOfParallelism(4)]
+[assembly: LevelOfParallelism(1)]
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM.

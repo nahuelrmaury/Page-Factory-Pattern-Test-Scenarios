@@ -42,7 +42,7 @@ namespace TestProject_UI_tests.Pages
 
         public void AddFirstProductToCart()
         {
-            IWebElement targetProduct = _productInfoElementCollection.First();
+            IWebElement targetProduct = _productInfoElementCollection.Skip(1).First();
 
             Actions actions = new Actions(_driver);
             actions.MoveToElement(targetProduct);

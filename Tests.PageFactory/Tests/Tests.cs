@@ -19,7 +19,7 @@ namespace TestProject_UI_tests
         public void SetUp()
         {
             var chromeOptions = new ChromeOptions();
-            chromeOptions.AddArgument("headless");
+            //chromeOptions.AddArgument("headless");
 
             _driver = new ChromeDriver(chromeOptions);
 
@@ -27,7 +27,7 @@ namespace TestProject_UI_tests
 
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
 
-            _driver.Navigate().GoToUrl("https://magento.softwaretestingboard.com/men.html");
+            _driver.Navigate().GoToUrl("https://magento.softwaretestingboard.com/");
 
             _mainPage = new MainPage(_driver);
         }
@@ -45,11 +45,11 @@ namespace TestProject_UI_tests
         {
             var customerLoginPage = _mainPage.ClickSignInButton();
 
-            customerLoginPage.Login("moderya7@gmail.com", "test_password1");
+            customerLoginPage.Login("nahuelrmaury@gmail.com", "Padalsop123");
 
             string actual = _mainPage.GetWelcomeMessage();
 
-            Assert.AreEqual("Welcome, Serhii Mykhailov!", actual);
+            Assert.AreEqual("Welcome, Nahuel Rodriguez!", actual);
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace TestProject_UI_tests
         {
             var customerLoginPage = _mainPage.ClickSignInButton();
 
-            customerLoginPage.Login("moderya7@gmail.com", "test_password1");
+            customerLoginPage.Login("nahuelrmaury@gmail.com", "Padalsop123");
 
             var productPage = _mainPage.OpenGearCategoryPage();
 
@@ -84,7 +84,7 @@ namespace TestProject_UI_tests
 
             var actual = productPage.GetAlertMessage();
 
-            Assert.AreEqual("You added Fusion Backpack to your shopping cart.", actual);
+            Assert.AreEqual("You added Push It Messenger Bag to your shopping cart.", actual);
         }
 
         [TearDown]
