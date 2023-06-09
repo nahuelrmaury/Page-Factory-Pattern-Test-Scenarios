@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using TestProject_UI_tests.Pages;
 
 namespace TestProject_UI_tests
@@ -14,6 +15,12 @@ namespace TestProject_UI_tests
 
         [ThreadStatic]
         private static MainPage _mainPage;
+
+        [ThreadStatic]
+        private static ShippingPage _shippingPage;
+
+        [ThreadStatic]
+        private static CreateAccount _createAccount;
 
         [SetUp]
         public void SetUp()
@@ -30,10 +37,20 @@ namespace TestProject_UI_tests
             _driver.Navigate().GoToUrl("https://magento.softwaretestingboard.com/");
 
             _mainPage = new MainPage(_driver);
+
+            _shippingPage = new ShippingPage(_driver);
+
+            _createAccount = new CreateAccount(_driver);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _driver.Quit();
         }
 
         [Test]
-        public void LogoutUser_CheckSignInButtonText_IsSignIn()
+        public void T01_LogoutUser_CheckSignInButtonText_IsSignIn()
         {
             string actual = _mainPage.GetSignInButtonText();
 
@@ -41,7 +58,7 @@ namespace TestProject_UI_tests
         }
 
         [Test]
-        public void MainPage_LoginByValidUser_WelcomeMessageIsCorrect()
+        public void T02_MainPage_LoginByValidUser_WelcomeMessageIsCorrect()
         {
             var customerLoginPage = _mainPage.ClickSignInButton();
 
@@ -53,7 +70,7 @@ namespace TestProject_UI_tests
         }
 
         [Test]
-        public void ValideUser_OpenGear_ProductListIsCorrect()
+        public void T03_ValidUser_OpenGear_ProductListIsCorrect()
         {
             var customerLoginPage = _mainPage.ClickSignInButton();
 
@@ -76,7 +93,7 @@ namespace TestProject_UI_tests
         }
 
         [Test]
-        public void LogoutUser_AddProductToCart_AlertIsCorect()
+        public void T04_LogoutUser_AddProductToCart_AlertIsCorect()
         {
             ProductPage productPage = _mainPage.OpenGearCategoryPage();
 
@@ -87,10 +104,62 @@ namespace TestProject_UI_tests
             Assert.AreEqual("You added Push It Messenger Bag to your shopping cart.", actual);
         }
 
-        [TearDown]
-        public void TearDown()
+        [Test]
+        public void T05_LoginValidUser_PlaceOrderOfProduct_OrderInfoAndProductInfoAreTheSame()
         {
-            _driver.Quit();
+            var customerLoginPage = _mainPage.ClickSignInButton();
+
+            customerLoginPage.Login("nahuelrmaury@gmail.com", "Padalsop123");
+
+            ProductPage productPage = _mainPage.OpenWatchesCategoryPage();
+
+            productPage.AddSpecificProductToCart("Dash Digital Watch");
+
+            _mainPage.ClickCheckoutButton();
+
+            _shippingPage.FillShippingInfo("Spur Road", "Olympia", "Washington", "12345", "United States");
+
+            var productNameOrdered = _shippingPage.GetProductName();
+
+            var productSubtotal = _shippingPage.GetProductSubtotal();
+
+            var shippingPrice = _shippingPage.GetShippingTotal();
+
+            var grandTotal = _shippingPage.GetGrandTotal();
+
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual("Dash Digital Watch", productNameOrdered);
+                Assert.AreEqual("$92.00", productSubtotal);
+                Assert.AreEqual("$5.00", shippingPrice);
+                Assert.AreEqual("$97.00", grandTotal);
+            });
         }
+
+        [Test]
+        public void T06_CreateAccount_FillAllFieldsExpectEmail_ErrorMessageIsCorrect()
+        {
+            _mainPage.ClickCreateAccountButton();
+
+            _createAccount.CreateNewAccount("Nahuel","Rodriguez","Padalsop123");
+
+            _createAccount.ClickCreateAccountButton();
+
+            string emailErrorMessage = _createAccount.GetEmailErrorMessage();
+
+            Assert.AreEqual("This is a required field.", emailErrorMessage);
+        }
+
+        [Test]
+        public void T07_LoginValidUser_AddTwoBagsandAnotherOneToCart_NumberOfProductsInCartIsCorrect()
+        {
+            var customerLoginPage = _mainPage.ClickSignInButton();
+
+            customerLoginPage.Login("nahuelrmaury@gmail.com", "Padalsop123");
+
+            ProductPage productPage = _mainPage.OpenGearCategoryPage();
+
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +54,26 @@ namespace TestProject_UI_tests.Pages
             productAddToCartButton.Click();
         }
 
+        public void AddSpecificProductToCart(string productName)
+        {
+            IWebElement targetProduct = _productInfoElementCollection.FirstOrDefault(e => e.Text.Contains(productName));
+
+            Actions actions = new Actions(_driver);
+
+            actions.MoveToElement(targetProduct).Perform();
+
+            IWebElement productAddToCartButton = targetProduct.FindElement(_toCartButton);
+
+            productAddToCartButton.Click();
+
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+
+            By messageLocator = By.XPath("//div[@class='message-success success message']");
+
+            wait.Until(ExpectedConditions.ElementIsVisible(messageLocator));
+
+        }
+
         public string GetAlertMessage()
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(4));
@@ -63,5 +84,7 @@ namespace TestProject_UI_tests.Pages
 
             return alert.Text;
         }
+
+
     }
 }
