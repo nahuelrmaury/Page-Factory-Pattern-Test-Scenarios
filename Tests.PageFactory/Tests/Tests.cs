@@ -26,7 +26,8 @@ namespace TestProject_UI_tests
         public void SetUp()
         {
             var chromeOptions = new ChromeOptions();
-            //chromeOptions.AddArgument("headless");
+
+            chromeOptions.AddArgument("headless");
 
             _driver = new ChromeDriver(chromeOptions);
 

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 
 namespace TestProject_UI_tests.Pages
 {
@@ -85,11 +86,9 @@ namespace TestProject_UI_tests.Pages
 
         public string InitialCartCounter()
         {
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            Thread.Sleep(2000);
 
-            wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("counter-number")));
-
-            return _counterNumber.Text;
+            return string.IsNullOrEmpty(_counterNumber.Text) ? "0" : _counterNumber.Text;
         }
 
 

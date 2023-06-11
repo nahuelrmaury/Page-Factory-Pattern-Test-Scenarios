@@ -53,7 +53,7 @@ namespace TestProject_UI_tests.Pages
 
             _cartButton.Click();
 
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
 

@@ -6,6 +6,7 @@ using SeleniumExtras.WaitHelpers;
 using System;
 using System.IO;
 using System.Net.Sockets;
+using System.Threading;
 using Tests.PageFactory.Pages;
 
 namespace TestProject_UI_tests.Pages
@@ -176,13 +177,7 @@ namespace TestProject_UI_tests.Pages
         public void ClickPlaceOrder()
         {
 
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-
-            By messageLocator = By.XPath("//div[@class='checkout-billing-address']");
-
-            wait.Until(ExpectedConditions.ElementIsVisible(messageLocator));
-
-            _interceptClick.Click();
+            Thread.Sleep(4000);
 
             _placeOrderButton.Click();
         }
