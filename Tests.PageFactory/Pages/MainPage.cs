@@ -78,5 +78,7 @@ namespace TestProject_UI_tests.Pages
 
             return _welcomeMessage.Text;
         }
+
+        
     }
 }

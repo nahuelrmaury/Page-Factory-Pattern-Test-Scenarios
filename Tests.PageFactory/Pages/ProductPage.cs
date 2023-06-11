@@ -6,6 +6,7 @@ using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace TestProject_UI_tests.Pages
 {
@@ -17,7 +18,7 @@ namespace TestProject_UI_tests.Pages
         [FindsBy(How = How.ClassName, Using = "messages")]
         private IWebElement _alertMessage;
 
-        [FindsBy(How = How.XPath, Using = "(//li[@class='item product product-item'])[3]")]
+        [FindsBy(How = How.XPath, Using = "(//li[@class='item product product-item'])[6]/div/a")]
         private IWebElement _clickOnProduct;
 
         [FindsBy(How = How.XPath, Using = "//button[@id='product-addtocart-button']")]
@@ -50,39 +51,13 @@ namespace TestProject_UI_tests.Pages
             return actual;
         }
 
-        public void AddFirstProductToCart()
+        public void AddProductToCart(int index)
         {
-            IWebElement targetProduct = _productInfoElementCollection.Skip(1).First();
+            IWebElement targetProduct = _productInfoElementCollection.ElementAt(index);
 
             Actions actions = new Actions(_driver);
-            actions.MoveToElement(targetProduct);
-            actions.Perform();
 
-            IWebElement productAddToCartButton = targetProduct.FindElement(_toCartButton);
-
-            productAddToCartButton.Click();
-        }
-
-        public void AddFirstProductCart()
-        {
-            IWebElement targetProduct = _productInfoElementCollection.First();
-
-            Actions actions = new Actions(_driver);
-            actions.MoveToElement(targetProduct);
-            actions.Perform();
-
-            IWebElement productAddToCartButton = targetProduct.FindElement(_toCartButton);
-
-            productAddToCartButton.Click();
-        }
-
-        public void AddSecondProductCart()
-        {
-            IWebElement targetProduct = _productInfoElementCollection.Skip(1).First();
-
-            Actions actions = new Actions(_driver);
-            actions.MoveToElement(targetProduct);
-            actions.Perform();
+            actions.MoveToElement(targetProduct).Perform();
 
             IWebElement productAddToCartButton = targetProduct.FindElement(_toCartButton);
 
@@ -91,16 +66,28 @@ namespace TestProject_UI_tests.Pages
 
         public string AddThirdProductCart()
         {
+            IWebElement targetProduct = _productInfoElementCollection.ElementAt(2);
+
+            Actions actions = new Actions(_driver);
+
+            actions.MoveToElement(targetProduct).Perform();
 
             _clickOnProduct.Click();
 
             _clickOnAddToCart.Click();
 
-            By messageLocator = By.XPath("//div[@class='message-success success message']");
-
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
 
-            wait.Until(ExpectedConditions.ElementIsVisible(messageLocator));
+            wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("message-success")));
+
+            return _counterNumber.Text;
+        }
+
+        public string InitialCartCounter()
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+
+            wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("counter-number")));
 
             return _counterNumber.Text;
         }

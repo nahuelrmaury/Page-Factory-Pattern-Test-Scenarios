@@ -97,7 +97,7 @@ namespace TestProject_UI_tests
         {
             ProductPage productPage = _mainPage.OpenGearCategoryPage();
 
-            productPage.AddFirstProductToCart();
+            productPage.AddProductToCart(1);
 
             var actual = productPage.GetAlertMessage();
 
@@ -161,15 +161,19 @@ namespace TestProject_UI_tests
 
             ProductPage productBagsPage = _mainPage.ClickBagsButton();
 
-            productBagsPage.AddFirstProductCart();
+            var initialCartCounter = productBagsPage.InitialCartCounter();
 
-            productBagsPage.AddSecondProductCart();
+            int cartCounter = int.Parse(initialCartCounter);
+
+            productBagsPage.AddProductToCart(0);
+
+            productBagsPage.AddProductToCart(1);
 
             var numberCounter = productBagsPage.AddThirdProductCart();
 
-            Assert.AreEqual("3", numberCounter);
+            int actualCartCounter = int.Parse(numberCounter);
 
-
+            Assert.AreEqual(cartCounter + 3, actualCartCounter);
         }
 
     }
