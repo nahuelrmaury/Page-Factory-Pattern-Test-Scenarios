@@ -62,7 +62,6 @@ namespace TestProject_UI_tests.Pages
             wait.Until(ExpectedConditions.ElementIsVisible(messageLocator));
 
             _checkoutButton.Click();
-
         }
 
         public string GetSignInButtonText()

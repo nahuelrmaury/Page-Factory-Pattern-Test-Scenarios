@@ -103,6 +103,8 @@ namespace TestProject_UI_tests
             var actual = productPage.GetAlertMessage();
 
             Assert.AreEqual("You added Push It Messenger Bag to your shopping cart.", actual);
+
+            productPage.cleanCart();
         }
 
         [Test]
@@ -175,6 +177,8 @@ namespace TestProject_UI_tests
             int actualCartCounter = int.Parse(numberCounter);
 
             Assert.AreEqual(cartCounter + 3, actualCartCounter);
+
+            productBagsPage.cleanAllCart();
         }
 
     }

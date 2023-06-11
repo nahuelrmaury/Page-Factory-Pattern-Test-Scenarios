@@ -19,7 +19,7 @@ namespace TestProject_UI_tests.Pages
         [FindsBy(How = How.ClassName, Using = "messages")]
         private IWebElement _alertMessage;
 
-        [FindsBy(How = How.XPath, Using = "(//li[@class='item product product-item'])[6]/div/a")]
+        [FindsBy(How = How.XPath, Using = "(//li[@class='item product product-item'])[3]/div/a")]
         private IWebElement _clickOnProduct;
 
         [FindsBy(How = How.XPath, Using = "//button[@id='product-addtocart-button']")]
@@ -27,6 +27,15 @@ namespace TestProject_UI_tests.Pages
 
         [FindsBy(How = How.XPath, Using = "//span[@class='counter-number']")]
         private IWebElement _counterNumber;
+
+        [FindsBy(How = How.ClassName, Using = "minicart-wrapper")]
+        private IWebElement _cartButton;
+
+        [FindsBy(How = How.XPath, Using = "//a[@class='action delete']")]
+        private IWebElement _deleteButton;
+
+        [FindsBy(How = How.XPath, Using = "//button[@class='action-primary action-accept']")]
+        private IWebElement _confirmButton;
 
         private By _productInfoNames = By.ClassName("product-item-link");
 
@@ -89,6 +98,56 @@ namespace TestProject_UI_tests.Pages
             Thread.Sleep(2000);
 
             return string.IsNullOrEmpty(_counterNumber.Text) ? "0" : _counterNumber.Text;
+        }
+
+        public void cleanCart()
+        {
+            Thread.Sleep(1000);
+
+            _cartButton.Click();
+
+            Thread.Sleep(1000);
+
+            _deleteButton.Click();
+
+            Thread.Sleep(1000);
+
+            _confirmButton.Click();
+
+            Thread.Sleep(1000);
+        }
+
+        public void cleanAllCart()
+        {
+            Thread.Sleep(1000);
+
+            _cartButton.Click();
+
+            Thread.Sleep(1000);
+
+            _deleteButton.Click();
+
+            Thread.Sleep(1000);
+
+            _confirmButton.Click();
+
+            Thread.Sleep(2000);
+
+            _deleteButton.Click();
+
+            Thread.Sleep(1000);
+
+            _confirmButton.Click();
+
+            Thread.Sleep(2000);
+
+            _deleteButton.Click();
+
+            Thread.Sleep(1000);
+
+            _confirmButton.Click();
+
+            Thread.Sleep(1000);
         }
 
 
