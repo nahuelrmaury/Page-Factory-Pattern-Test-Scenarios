@@ -17,6 +17,15 @@ namespace TestProject_UI_tests.Pages
         [FindsBy(How = How.ClassName, Using = "messages")]
         private IWebElement _alertMessage;
 
+        [FindsBy(How = How.XPath, Using = "(//li[@class='item product product-item'])[3]")]
+        private IWebElement _clickOnProduct;
+
+        [FindsBy(How = How.XPath, Using = "//button[@id='product-addtocart-button']")]
+        private IWebElement _clickOnAddToCart;
+
+        [FindsBy(How = How.XPath, Using = "//span[@class='counter-number']")]
+        private IWebElement _counterNumber;
+
         private By _productInfoNames = By.ClassName("product-item-link");
 
         private By _toCartButton = By.ClassName("tocart");
@@ -54,24 +63,78 @@ namespace TestProject_UI_tests.Pages
             productAddToCartButton.Click();
         }
 
-        public void AddSpecificProductToCart(string productName)
+        public void AddFirstProductCart()
         {
-            IWebElement targetProduct = _productInfoElementCollection.FirstOrDefault(e => e.Text.Contains(productName));
+            IWebElement targetProduct = _productInfoElementCollection.First();
 
             Actions actions = new Actions(_driver);
-
-            actions.MoveToElement(targetProduct).Perform();
+            actions.MoveToElement(targetProduct);
+            actions.Perform();
 
             IWebElement productAddToCartButton = targetProduct.FindElement(_toCartButton);
 
             productAddToCartButton.Click();
+        }
 
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+        public void AddSecondProductCart()
+        {
+            IWebElement targetProduct = _productInfoElementCollection.Skip(1).First();
+
+            Actions actions = new Actions(_driver);
+            actions.MoveToElement(targetProduct);
+            actions.Perform();
+
+            IWebElement productAddToCartButton = targetProduct.FindElement(_toCartButton);
+
+            productAddToCartButton.Click();
+        }
+
+        public string AddThirdProductCart()
+        {
+
+            _clickOnProduct.Click();
+
+            _clickOnAddToCart.Click();
 
             By messageLocator = By.XPath("//div[@class='message-success success message']");
 
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+
             wait.Until(ExpectedConditions.ElementIsVisible(messageLocator));
 
+            return _counterNumber.Text;
+        }
+
+
+        public void AddSpecificProductToCart(string productName)
+        {
+            IWebElement targetProduct = _productInfoElementCollection.FirstOrDefault(e => e.Text.Contains(productName));
+
+            if (targetProduct != null)
+            {
+                ScrollToElement(targetProduct);
+
+                IWebElement productAddToCartButton = targetProduct.FindElement(_toCartButton);
+
+                productAddToCartButton.Click();
+
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+
+                By messageLocator = By.XPath("//div[@class='message-success success message']");
+
+                wait.Until(ExpectedConditions.ElementIsVisible(messageLocator));
+            }
+            else
+            {
+                throw new NoSuchElementException("Product not found");
+            }
+        }
+
+        private void ScrollToElement(IWebElement element)
+        {
+            Actions actions = new Actions(_driver);
+            actions.MoveToElement(element);
+            actions.Perform();
         }
 
         public string GetAlertMessage()

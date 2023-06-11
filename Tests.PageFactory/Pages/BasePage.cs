@@ -15,6 +15,10 @@ namespace TestProject_UI_tests.Pages
         [FindsBy(How = How.Id, Using = "ui-id-27")]
         private IWebElement _watchesCategoryButton;
 
+        [FindsBy(How = How.XPath, Using = "//ul[@class='items']/li[@class='item']/a")]
+        private IWebElement _bagsButton;
+
+
         protected readonly IWebDriver _driver;
 
         public BasePage(IWebDriver driver)
@@ -47,6 +51,19 @@ namespace TestProject_UI_tests.Pages
             wait.Until((driver) => driver.Title.StartsWith("Watches"));
 
             return new ProductPage(_driver);
+        }
+
+        public ProductPage ClickBagsButton()
+        {
+
+            _bagsButton.Click();
+
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(4));
+
+            wait.Until((driver) => driver.Title.StartsWith("Bags - Gear"));
+
+            return new ProductPage(_driver);
+            
         }
     }
 }

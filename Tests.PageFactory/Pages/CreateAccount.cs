@@ -31,9 +31,9 @@ namespace TestProject_UI_tests.Pages
         private IWebElement _emailErrorMessage;
 
         
-        
 
-        public CreateAccount(IWebDriver driver) : base(driver)
+
+                public CreateAccount(IWebDriver driver) : base(driver)
         {
         }
 
@@ -66,6 +66,6 @@ namespace TestProject_UI_tests.Pages
             _createAccountButton.Click();
         }
 
-
+        
     }
 }

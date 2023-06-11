@@ -141,7 +141,7 @@ namespace TestProject_UI_tests
         {
             _mainPage.ClickCreateAccountButton();
 
-            _createAccount.CreateNewAccount("Nahuel","Rodriguez","Padalsop123");
+            _createAccount.CreateNewAccount("Nahuel", "Rodriguez", "Padalsop123");
 
             _createAccount.ClickCreateAccountButton();
 
@@ -157,7 +157,18 @@ namespace TestProject_UI_tests
 
             customerLoginPage.Login("nahuelrmaury@gmail.com", "Padalsop123");
 
-            ProductPage productPage = _mainPage.OpenGearCategoryPage();
+            _mainPage.OpenGearCategoryPage();
+
+            ProductPage productBagsPage = _mainPage.ClickBagsButton();
+
+            productBagsPage.AddFirstProductCart();
+
+            productBagsPage.AddSecondProductCart();
+
+            var numberCounter = productBagsPage.AddThirdProductCart();
+
+            Assert.AreEqual("3", numberCounter);
+
 
         }
 

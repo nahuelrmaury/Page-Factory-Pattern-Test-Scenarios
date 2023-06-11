@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\54911\\Desktop\\ti-task12_page-factory\\Tests.PageFactory\\Tests.PageFactory.csproj": {}
+    "C:\\Users\\nahue\\OneDrive\\Escritorio\\Team International\\Lecture 15 (Page object)\\ti-task12-page_factory\\Tests.PageFactory\\Tests.PageFactory.csproj": {}
   },
   "projects": {
-    "C:\\Users\\54911\\Desktop\\ti-task12_page-factory\\Tests.PageFactory\\Tests.PageFactory.csproj": {
+    "C:\\Users\\nahue\\OneDrive\\Escritorio\\Team International\\Lecture 15 (Page object)\\ti-task12-page_factory\\Tests.PageFactory\\Tests.PageFactory.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\54911\\Desktop\\ti-task12_page-factory\\Tests.PageFactory\\Tests.PageFactory.csproj",
+        "projectUniqueName": "C:\\Users\\nahue\\OneDrive\\Escritorio\\Team International\\Lecture 15 (Page object)\\ti-task12-page_factory\\Tests.PageFactory\\Tests.PageFactory.csproj",
         "projectName": "Tests.PageFactory",
-        "projectPath": "C:\\Users\\54911\\Desktop\\ti-task12_page-factory\\Tests.PageFactory\\Tests.PageFactory.csproj",
-        "packagesPath": "C:\\Users\\54911\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\54911\\Desktop\\ti-task12_page-factory\\Tests.PageFactory\\obj\\",
+        "projectPath": "C:\\Users\\nahue\\OneDrive\\Escritorio\\Team International\\Lecture 15 (Page object)\\ti-task12-page_factory\\Tests.PageFactory\\Tests.PageFactory.csproj",
+        "packagesPath": "C:\\Users\\nahue\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nahue\\OneDrive\\Escritorio\\Team International\\Lecture 15 (Page object)\\ti-task12-page_factory\\Tests.PageFactory\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\54911\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nahue\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -107,7 +107,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

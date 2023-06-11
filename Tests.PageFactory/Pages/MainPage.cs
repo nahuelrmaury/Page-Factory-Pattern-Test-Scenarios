@@ -43,6 +43,8 @@ namespace TestProject_UI_tests.Pages
             return new CustomerLoginPage(_driver);
         }
 
+
+
         public void ClickCheckoutButton()
         {
             Actions actions = new Actions(_driver);
